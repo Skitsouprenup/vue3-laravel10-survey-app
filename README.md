@@ -16,6 +16,7 @@ I have a quick demo of this project in this [link](https://youtu.be/xajAjuhhN4I)
 * **MySQL**
 * **PHP**
 * **Javascript**
+* **TailwindCSS**
 
 # Testing this project
 You can clone this project and test it for yourself. However, you need to generate
