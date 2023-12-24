@@ -18,5 +18,9 @@ I have a quick demo of this project in this [link](https://youtu.be/xajAjuhhN4I)
 * **Javascript**
 
 # Testing this project
-You can clone this project and test it for yourself. However, you need to create *.env* file in *client/buy-digial* directory for frontend. For the backend, you need to create *config*
-directory in *server* directory then create *default.json* in it.
+You can clone this project and test it for yourself. However, you need to generate
+and new laravel app key first by executing this command:  
+`php artisan key:generate`
+
+And then, put your database name in .env next to 'DB_DATABASE' key. Next, don't
+forget to execute `composer intall` to install the packages in laravel project.
