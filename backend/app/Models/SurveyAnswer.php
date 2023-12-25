@@ -21,7 +21,7 @@ class SurveyAnswer extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['survey_id', 'start_date', 'end_date'];
+    protected $fillable = ['survey_id', 'user_id', 'start_date', 'end_date'];
 
     public function survey() {
       return $this->belongsTo(Survey::class);

@@ -31,7 +31,7 @@ const routes = [
         component: () => import('@/views/SurveyForm.vue')
       },
       {
-        path: '/surveys/:slug', 
+        path: '/surveys/:slug/:id', 
         name: 'surveyView',
         component: () => import('@/views/SurveyAnswerForm.vue')
       },

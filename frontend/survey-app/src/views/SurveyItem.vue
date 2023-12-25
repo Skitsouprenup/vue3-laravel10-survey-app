@@ -39,7 +39,7 @@ const displayDesc = (description) => {
 }
 
 const viewSurvey = () => {
-  router.push(`surveys/${props.survey?.slug}`)
+  router.push(`surveys/${props.survey?.slug}/${props.survey?.id}`)
 }
 
 const editSurvey = () => {

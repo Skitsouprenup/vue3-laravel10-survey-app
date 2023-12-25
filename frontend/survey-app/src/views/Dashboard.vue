@@ -84,7 +84,7 @@ onBeforeMount(() => {
         >
           <div>
             <h1
-              class="font-medium text-2xl text-gray-800"
+              class="font-medium text-2xl"
             >
               Latest Survey
             </h1>
@@ -145,7 +145,7 @@ onBeforeMount(() => {
               <div class="flex justify-around gap-1 flex-wrap pt-2">
                 <div class="w-fit h-fit">
                   <RouterLink
-                    :to="`/surveys/${stats.latestSurvey.slug}`"
+                    :to="`/surveys/${stats.latestSurvey.slug}/${stats.latestSurvey.id}`"
                     
                   >
                     <button
@@ -193,7 +193,7 @@ onBeforeMount(() => {
             class="flex justify-between px-1 w-full items-center"
           >
             <h1
-              class="font-medium text-2xl text-gray-800"
+              class="font-medium text-2xl"
             >
               Latest Answers
             </h1>
@@ -214,7 +214,7 @@ onBeforeMount(() => {
             "
           >
             <h2
-              class="text-lg font-medium"
+              class="text-lg font-medium text-gray-800"
             >
               {{ answer.survey.title }}
             </h2>

@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 
-const props = defineProps(['surveyTitle'])
+const props = defineProps(['surveyTitle', 'message'])
 
 </script>
 
@@ -16,7 +16,11 @@ const props = defineProps(['surveyTitle'])
     <h1
       class="text-2xl font-bold"
     >
-      Thank you for completing the '{{ props.surveyTitle }}' survey.
+      {{ 
+        props.surveyTitle 
+        ? `Thank you for completing the ${props.surveyTitle} survey.` 
+        : `Thank you for completing the survey.`
+      }}
     </h1>
 
     <div
@@ -25,7 +29,7 @@ const props = defineProps(['surveyTitle'])
       <p
         class="text-lg text-gray-600"
       >
-        Thank you for your participation on this survey!
+        {{ props.message }}
       </p>
       <RouterLink
         to="/surveys"

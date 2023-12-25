@@ -39,3 +39,11 @@ export const getDashboardInfo = () => {
     }
   })
 }
+
+export const checkAnsweredSurvey = (surveyId) => {
+  return axiosClient.get(`/answer/answered?surveyid=${surveyId}`, {
+    headers: {
+      'Accept':'application/json'
+    }
+  })
+}

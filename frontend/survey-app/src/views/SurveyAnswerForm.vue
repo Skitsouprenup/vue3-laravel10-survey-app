@@ -6,7 +6,7 @@ import { useRoute, useRouter } from 'vue-router'
 import LoadingScreen from '@/components/LoadingScreen.vue'
 import FormErrorList from '@/components/FormErrorList.vue'
 
-import { getSurveyBySlug } from '@/scripts/crud/get' 
+import { checkAnsweredSurvey, getSurveyBySlug } from '@/scripts/crud/get' 
 import { saveSurveyAnswer } from '@/scripts/crud/post'
 
 import { 
@@ -17,6 +17,8 @@ import SurveyCompleteBanner from '../components/SurveyCompleteBanner.vue'
 
 const survey = ref(null)
 const surveyComplete = ref(false)
+const surveyCompleteMessage = ref('')
+
 const loading = ref(true)
 const fetchLoading = ref(false)
 const loadingMessage = ref('Loading...')
@@ -26,33 +28,51 @@ const router = useRouter()
 const route = useRoute()
 
 onBeforeMount(() => {
-  if(route.params.slug) {
-    getSurveyBySlug(route.params.slug).
+  if(route.params.slug && route.params.id) {
+    checkAnsweredSurvey(route.params.id).
     then((response) => {
+      const answered = response.data?.answered
 
-      const questionAnswer = []
-      for(const item of response.data.data.questions) {
+      if(!answered) {
+        getSurveyBySlug(route.params.slug).
+        then((response) => {
 
-        questionAnswer.push({
-          ...item,
-          answer: 
-            item.selectionChoices.type === 'multiple'
-            ? []
-            : ''
+          const questionAnswer = []
+          for(const item of response.data.data.questions) {
+
+            questionAnswer.push({
+              ...item,
+              answer: 
+                item.selectionChoices.type === 'multiple'
+                ? []
+                : ''
+            })
+          }
+
+          survey.value = {
+            ...response.data.data,
+            questions: [...questionAnswer]
+          }
+
+          loading.value = false
+        }).
+        catch((error) => {
+          console.error(error)
+          loadingMessage.value = 'An Error Occured.'
         })
+      } else {
+        surveyComplete.value = true
+        surveyCompleteMessage.value = 
+          'You already answered this survey. ' +
+          'Thank you for your participation!'
       }
-
-      survey.value = {
-        ...response.data.data,
-        questions: [...questionAnswer]
-      }
-
-      loading.value = false
     }).
     catch((error) => {
       console.error(error)
       loadingMessage.value = 'An Error Occured.'
     })
+
+    
   } else loadingMessage.value = 'No Selected Survey.'
 })
 
@@ -136,6 +156,8 @@ const completeSurvey = (event) => {
   then((response) => {
     console.log(response.data)
     surveyComplete.value = true
+    surveyCompleteMessage.value = 
+      'Thank you for your participation on this survey!'
   }).
   catch((error) => {
     displayApiError(error, errorList)
@@ -149,7 +171,10 @@ const completeSurvey = (event) => {
   <div
     v-if="surveyComplete"
   >
-    <SurveyCompleteBanner :survey-title="survey?.title" />
+    <SurveyCompleteBanner 
+      :survey-title="survey?.title"
+      :message="surveyCompleteMessage" 
+    />
   </div>
   <div v-else>
     <LoadingScreen v-if="loading" :message="loadingMessage" />

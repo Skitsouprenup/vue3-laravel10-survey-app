@@ -53,10 +53,20 @@ class SurveyController extends Controller
 
     /*
       Custom function. Not part of the built-in function of a resource
-      controller 
+      controller.
+
+      Displays a single survey based on its slug
     */
     public function showPublic(Survey $survey) {
       return new SurveyResource($survey);
+    }
+
+    public function getPublishedSurveys(Request $request) {
+      $public_surveys = Survey::where([
+        'status' => 1
+      ]);
+
+      return response($public_surveys, 200);
     }
 
     /*
@@ -65,9 +75,11 @@ class SurveyController extends Controller
     */
     public function storeAnswer(StoreSurveyAnswerRequest $request, Survey $survey) {
       $validated = $request->validated();
+      $user = $request->user();
 
       $surveyAnswer = SurveyAnswer::create([
         'survey_id' => $survey->id,
+        'user_id' => $user->id,
         /*
           This should be anwer_date only. For
           some reason I created two dates with

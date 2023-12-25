@@ -3,13 +3,24 @@ import SurveyPapers from '@/assets/survey-papers-icon.png'
 //import BellIcon from '@/components/icons/BellIcon.vue'
 import PersonCircle from '@/components/icons/PersonCircle.vue'
 import { navbarLinks } from '@/scripts/navbarlinks'
-import { onMounted, provide, ref, watch } from 'vue'
-import { RouterLink } from 'vue-router'
+import { computed, onMounted, provide, ref, watch } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
 import { navbarDropdowns } from '../scripts/navbardropdowns'
 
 const activeNavLink = ref('dashboard')
 const activeLinkIcon = ref('')
 const activeDropdownAnim = ref('')
+
+const route = useRoute()
+
+watch(computed(() => route.fullPath), (newValue) => {
+  const path = newValue.split('/')
+
+  if(path.length >= 1) {
+    selectNavigation(path[1])
+  }
+
+})
 
 const selectNavigation = (toName) => {
 
@@ -27,10 +38,6 @@ const setActiveLinkIcon = (value) => {
 
 watch(activeLinkIcon, (activeLink) => {
   if(activeLink) activeDropdownAnim.value = activeLink 
-})
-
-onMounted(() => {
-  selectNavigation()
 })
 
 provide('navbarUtils', {
@@ -72,7 +79,6 @@ provide('navbarUtils', {
           hover:text-amber-400 transition-colors ease-in-out
         "
         :to="{ name: item.name }"
-        @click="selectNavigation(item.name)"
       >
         {{ item.label }}
       </RouterLink>

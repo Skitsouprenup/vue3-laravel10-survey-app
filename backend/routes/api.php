@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\UserCredentialsController;
@@ -42,4 +43,6 @@ Route::middleware('auth:sanctum')->group(function() {
   Route::post('/logout', [UserCredentialsController::class, 'logout']);
   Route::resource('/survey', SurveyController::class);
   Route::get('/dashboard', [DashboardController::class, 'index']);
+
+  Route::get('/answer/answered', [AnswerController::class, 'checkIfAnsweredByUser']);
 });
