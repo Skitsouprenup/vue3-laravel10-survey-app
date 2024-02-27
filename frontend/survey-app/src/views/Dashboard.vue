@@ -12,6 +12,8 @@ const stats = ref(null)
 const loading = ref(true)
 const loadingMessage = ref('Loading...')
 
+const latestSurveyRoute = ref('')
+
 const formatDateTime = (dateString) => {
   const date = new Date(dateString);
   return `${date.toDateString()} ` +
@@ -23,7 +25,15 @@ onBeforeMount(() => {
   then((response) => {
     //console.log(response.data)
     stats.value = response.data
-    loading.value = false
+    if(response.data.latestSurvey) {
+      loading.value = false
+      latestSurveyRoute.value = 
+        response.data.latestSurvey.status 
+        ? '/surveys/'+response.data.latestSurvey.slug+'/'
+          +response.data.latestSurvey.id
+        : '/surveys/edit/'+response.data.latestSurvey.id
+    }
+    else loadingMessage.value = "Can't find surveys"
   }).
   catch((error) => {
     console.error(error)
@@ -125,7 +135,7 @@ onBeforeMount(() => {
                 class="flex justify-between gap-1"
               >
                 <span>Status:</span>
-                <span>{{ stats.latestSurvey.status ? 'Draft' : 'Published' }}</span>
+                <span>{{ stats.latestSurvey.status === 0 ? 'Draft' : 'Published' }}</span>
               </div>
 
               <div
@@ -144,10 +154,7 @@ onBeforeMount(() => {
 
               <div class="flex justify-around gap-1 flex-wrap pt-2">
                 <div class="w-fit h-fit">
-                  <RouterLink
-                    :to="`/surveys/${stats.latestSurvey.slug}/${stats.latestSurvey.id}`"
-                    
-                  >
+                  <RouterLink :to=latestSurveyRoute>
                     <button
                       class="
                         rounded-md bg-sky-300 p-2 hover:bg-sky-400 flex gap-1
@@ -156,12 +163,15 @@ onBeforeMount(() => {
                     >
                       <EyeIcon v-if="!stats.latestSurvey.status" />
                       <PencilSquareIcon v-else/>
-                      {{ stats.latestSurvey.status ? 'Edit Survey' : 'View Survey' }}
+                      {{ !stats.latestSurvey.status ? 'Edit Survey' : 'View Survey' }}
                     </button>
                   </RouterLink>
                 </div>
 
-                <div class="w-fit h-fit">
+                <div 
+                  class="w-fit h-fit" 
+                  v-if="stats.latestSurvey.status === 1"
+                >
                   <!-- TODO -->
                   <RouterLink
                     to="/surveys"
