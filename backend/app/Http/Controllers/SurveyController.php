@@ -76,7 +76,6 @@ class SurveyController extends Controller
     public function storeAnswer(StoreSurveyAnswerRequest $request, Survey $survey) {
       $validated = $request->validated();
       $user = $request->user();
-
       $surveyAnswer = SurveyAnswer::create([
         'survey_id' => $survey->id,
         'user_id' => $user->id,
@@ -88,7 +87,7 @@ class SurveyController extends Controller
         'start_date' => date('Y-m-d H:i:s'),
         'end_date' => date('Y-m-d H:i:s')
       ]);
-
+      
       foreach($validated['answers'] as $questionId => $answer) {
         /*
           use get() to fetch data in the database. where only

@@ -33,9 +33,10 @@ Route::post('/login', [UserCredentialsController::class, 'login']);
   the 'id' column by default.
 */
 Route::get('/survey/slug/{survey:slug}', [SurveyController::class, 'showPublic']);
-Route::post('/survey/{survey}/answer', [SurveyController::class, 'storeAnswer']);
 
 Route::middleware('auth:sanctum')->group(function() {
+  Route::post('/survey/{survey}/answer', [SurveyController::class, 'storeAnswer']);
+
   /*Route to quick-check if user is authenticated */
   Route::get('/user', function (Request $request) {
     return $request->user();

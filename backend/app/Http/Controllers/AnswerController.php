@@ -13,7 +13,7 @@ class AnswerController extends Controller
       $user = $request->user();
 
       if($request->has('surveyid')) {
-        $userId = $request->query('surveyid');
+        $surveyId = $request->query('surveyid');
       } else {
         return response('Bad Request', 400);
       }
@@ -23,7 +23,7 @@ class AnswerController extends Controller
         'survey_id' => $surveyId
       ])->get();
 
-      if($answer) {
+      if($answer && count($answer) > 0) {
         return response(['answered' => true], 200);
       } else {
         return response(['answered' => false], 200);
