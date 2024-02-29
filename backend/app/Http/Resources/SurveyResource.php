@@ -18,6 +18,7 @@ class SurveyResource extends JsonResource
     {
         /* This is the response payload */
         return [
+          'userId' => $this->user_id,
           'id' => $this->id,
           /* prepend image path with backend URL */
           'imagePrev' => $this->image ? URL::to($this->image) : null,

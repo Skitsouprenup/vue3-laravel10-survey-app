@@ -1,7 +1,16 @@
 import axiosClient from "../axios"
 
+//Get survey of a specific user
 export const getSurveys = () => {
   return axiosClient.get('/survey', {
+    headers: {
+      'Accept':'application/json'
+    }
+  })
+}
+
+export const getPublishedSurveys = () => {
+  return axiosClient.get('/survey/published', {
     headers: {
       'Accept':'application/json'
     }

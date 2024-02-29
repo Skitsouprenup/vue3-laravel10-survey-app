@@ -17,6 +17,7 @@ export default defineStore('globalStore', {
   /*Getter are computed by default */
   getters: {
     getToken: (state) => state.token,
+    getUserDetails: (state) => state.userDetails,
     getToasts: (state) => state.toasts,
     getModalProps: (state) => state.modalProps,
     getModalConfirmBtn: (state) => state.modalProps.content?.confirmButton,

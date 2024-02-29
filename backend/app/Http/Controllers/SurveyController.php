@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\File;
 class SurveyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource for a specific user.
      */
     public function index(Request $request) {
         $user = $request->user();
@@ -62,11 +62,7 @@ class SurveyController extends Controller
     }
 
     public function getPublishedSurveys(Request $request) {
-      $public_surveys = Survey::where([
-        'status' => 1
-      ]);
-
-      return response($public_surveys, 200);
+      return SurveyResource::collection(Survey::where('status', 1)->paginate(10));
     }
 
     /*

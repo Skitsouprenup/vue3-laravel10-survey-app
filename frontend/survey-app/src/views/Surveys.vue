@@ -3,7 +3,7 @@ import PageLayout from '@/components/PageLayout.vue'
 import PlusIcon from '@/components/icons/PlusIcon.vue'
 import { onMounted, ref } from 'vue'
 
-import { getSurveys } from '../scripts/crud/get'
+import { getPublishedSurveys } from '../scripts/crud/get'
 import LoadingScreen from '../components/LoadingScreen.vue'
 import SurveyItem from './SurveyItem.vue'
 import Pagination from '../components/Pagination.vue'
@@ -24,8 +24,9 @@ const links = ref(null)
 const meta = ref(null)
 
 onMounted(() => {
-  getSurveys().
+  getPublishedSurveys().
   then((response) => {
+    console.log(response.data)
     if(!response.data.data.length) {
       loadingMessage.value = "No Surveys Found."
     }
@@ -79,7 +80,10 @@ onMounted(() => {
       >
         <div>
           <LoadingScreen v-if="loading" :message="loadingMessage"/>
-          <div v-else>
+          <div
+            class="flex gap-3 flex-wrap" 
+            v-else
+          >
             <SurveyItem 
               v-for="survey in surveys"
               :survey="survey"

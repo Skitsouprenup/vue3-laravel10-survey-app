@@ -36,6 +36,7 @@ Route::get('/survey/slug/{survey:slug}', [SurveyController::class, 'showPublic']
 
 Route::middleware('auth:sanctum')->group(function() {
   Route::post('/survey/{survey}/answer', [SurveyController::class, 'storeAnswer']);
+  Route::get('/survey/published', [SurveyController::class, 'getPublishedSurveys']);
 
   /*Route to quick-check if user is authenticated */
   Route::get('/user', function (Request $request) {

@@ -85,14 +85,13 @@ const deleteSelectedSurvey = (surveyId) => {
 
 <template>
   <div
-    class="flex flex-col gap-2 shadow-md w-fit p-2"
+    class="flex flex-col gap-2 shadow-md w-fit p-2 justify-stretch"
   >
-    <div>
+    <div class="flex-1 flex flex-col" style="width: 300px; height: 300px;">
       <img
-        width="300"
-        height="300"
+        class="flex-1"
         :src="props.survey?.imagePrev" 
-        alt="image" 
+        alt="image"
       />
     </div>
 
@@ -131,6 +130,7 @@ const deleteSelectedSurvey = (surveyId) => {
         <span class="tooltiptext">Edit</span>
       </div>
       <div
+        v-if="props.survey.userId === appStore.getUserDetails.id"
         class="cursor-pointer hover:scale-110 tooltip"
         @click="$event => 
         openDeleteModal(
