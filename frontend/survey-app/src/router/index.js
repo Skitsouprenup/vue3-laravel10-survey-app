@@ -35,6 +35,11 @@ const routes = [
         name: 'surveyView',
         component: () => import('@/views/SurveyAnswerForm.vue')
       },
+      {
+        path: '/answers/:id', 
+        name: 'answerView',
+        component: () => import('@/views/Answers.vue')
+      },
     ]
   },
   {

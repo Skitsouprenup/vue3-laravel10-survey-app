@@ -174,7 +174,7 @@ onBeforeMount(() => {
                 >
                   <!-- TODO -->
                   <RouterLink
-                    to="/surveys"
+                    :to="`answers/${stats.latestSurvey.id}`"
                   >
                     <button
                       class="
@@ -183,7 +183,7 @@ onBeforeMount(() => {
                       "
                     >
                       <EyeIcon />
-                      View Answers
+                      View Answer
                     </button>
                   </RouterLink>
                 </div>
@@ -207,13 +207,6 @@ onBeforeMount(() => {
             >
               Latest Answers
             </h1>
-            <!-- TODO -->
-            <RouterLink
-              to="/surveys"
-              class="hover:underline h-fit text-sky-600"
-            >
-              View All
-            </RouterLink>
           </div>
 
           <div
@@ -223,6 +216,9 @@ onBeforeMount(() => {
               w-full p-1
             "
           >
+            <RouterLink
+              :to="`answers/${answer.id}`"
+            >
             <h2
               class="text-lg font-medium text-gray-800"
             >
@@ -233,6 +229,7 @@ onBeforeMount(() => {
             >
               Answered: {{ answer.end_date }}
             </p>
+            </RouterLink>
           </div>
         </div>
 

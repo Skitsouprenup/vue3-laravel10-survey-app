@@ -2,7 +2,6 @@
 import { onBeforeMount, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-
 import LoadingScreen from '@/components/LoadingScreen.vue'
 import FormErrorList from '@/components/FormErrorList.vue'
 

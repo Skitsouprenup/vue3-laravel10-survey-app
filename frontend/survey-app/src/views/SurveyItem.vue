@@ -116,14 +116,14 @@ const deleteSelectedSurvey = (surveyId) => {
       <div
         class="cursor-pointer hover:scale-110 tooltip"
         v-on:click="viewSurvey"
-        v-if="props.survey?.status === 0"
+        v-if="props.survey?.status"
       >
         <EyeIcon />
         <span class="tooltiptext">View</span>
       </div>
       <div
         class="cursor-pointer hover:scale-110 tooltip"
-        v-if="props.survey?.status === 1"
+        v-if="!props.survey?.status"
         v-on:click="editSurvey"
         
       >

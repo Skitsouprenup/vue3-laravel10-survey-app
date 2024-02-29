@@ -40,6 +40,14 @@ export const getDashboardInfo = () => {
   })
 }
 
+export const getAnswersBySurveyId = (surveyId) => {
+  return axiosClient.get(`/answer/${surveyId}`, {
+    headers: {
+      'Accept':'application/json'
+    }
+  })
+}
+
 export const checkAnsweredSurvey = (surveyId) => {
   return axiosClient.get(`/answer/answered?surveyid=${surveyId}`, {
     headers: {

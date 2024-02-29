@@ -45,5 +45,11 @@ Route::middleware('auth:sanctum')->group(function() {
   Route::resource('/survey', SurveyController::class);
   Route::get('/dashboard', [DashboardController::class, 'index']);
 
+  //Route::get('/answer/latest', [AnswerController::class, 'index']);
+  //This comes before '/answer/{surveyid}' because laravel can't distinguish
+  //between '/answered' and '/{surveyid}' since both of them are considered
+  //as string. Thus, when '/answer/{surveyid}' is on top and then we visit
+  //'/answer/answered', laravel executes '/answer/{surveyid}' endpoint.
   Route::get('/answer/answered', [AnswerController::class, 'checkIfAnsweredByUser']);
+  Route::get('/answer/{surveyid}', [AnswerController::class, 'getAnswersBySurveyId']);
 });
