@@ -13,9 +13,16 @@ const activeDropdownAnim = ref('')
 
 const route = useRoute()
 
+onMounted(() => {
+  const path = route.fullPath.split('/');
+
+  if(path.length >= 1) {
+    selectNavigation(path[1])
+  }
+})
+
 watch(computed(() => route.fullPath), (newValue) => {
   const path = newValue.split('/')
-
   if(path.length >= 1) {
     selectNavigation(path[1])
   }
@@ -37,6 +44,7 @@ const setActiveLinkIcon = (value) => {
 }
 
 watch(activeLinkIcon, (activeLink) => {
+
   if(activeLink) activeDropdownAnim.value = activeLink 
 })
 

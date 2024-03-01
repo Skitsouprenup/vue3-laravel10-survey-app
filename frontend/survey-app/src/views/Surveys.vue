@@ -26,7 +26,7 @@ const meta = ref(null)
 onMounted(() => {
   getPublishedSurveys().
   then((response) => {
-    console.log(response.data)
+    //console.log(response.data)
     if(!response.data.data.length) {
       loadingMessage.value = "No Surveys Found."
     }
