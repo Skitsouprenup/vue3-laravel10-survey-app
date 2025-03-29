@@ -8,7 +8,7 @@ Functionalities and features of this project:
 * Dashboard
 * Responsive Design.
 
-I have a quick demo of this project in this [link](https://youtu.be/xajAjuhhN4I)
+I have a quick demo of this project in this [link](https://youtu.be/xwvHfVxd1zY)
 
 # Technologies Used
 * **Vue3**
